@@ -3,13 +3,12 @@ use {
     anchor_spl::associated_token,
     litesvm::LiteSVM,
     litesvm_token::CreateMint,
-    solana_transaction::versioned::VersionedTransaction,
+    solana_transaction::Transaction,
 
     solana_sdk::{
         hash::Hash,
         pubkey::Pubkey,
         signature::{Keypair, Signer},
-        transaction::Transaction,
     },
 };
 
@@ -24,13 +23,11 @@ fn send_tx(
 ) {
     let blockhash: Hash = svm.latest_blockhash();
 
-    let tx = VersionedTransaction::from(
-        Transaction::new_signed_with_payer(
+    let tx = Transaction::new_signed_with_payer(
             ixs,
             Some(&payer.pubkey()),
             signers,
             blockhash,
-        )
     );
 
     svm.send_transaction(tx).unwrap();

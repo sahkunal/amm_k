@@ -28,7 +28,7 @@ pub fn create_swap_ix(
     let user_x = associated_token::get_associated_token_address(&user, &mint_x);
     let user_y = associated_token::get_associated_token_address(&user, &mint_y);
 
-    let user_lp = associated_token::get_associated_token_address(&user, &mint_lp);
+    //let user_lp = associated_token::get_associated_token_address(&user, &mint_lp);
 
     Instruction::new_with_bytes(
         amm_k::id(),
@@ -38,7 +38,7 @@ pub fn create_swap_ix(
             min: 5_000_000,
         }
         .data(),
-        amm_k::accounts::Withdraw {
+        amm_k::accounts::Swap{
             user,
             mint_x,
             mint_y,
@@ -48,7 +48,6 @@ pub fn create_swap_ix(
             vault_y,
             user_x,
             user_y,
-            user_lp,
             token_program: TOKEN_PROGRAM_ID,
             associated_token_program: ASSOCIATED_TOKEN_PROGRAM_ID,
             system_program: SYSTEM_PROGRAM_ID,
